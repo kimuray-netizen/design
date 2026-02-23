@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スルリム | あなたのダイエットを代行します</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #1a1a1a;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url('https://images.unsplash.com/photo-1542385151-efd9000785a0?q=80&w=2038&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center right;
+        }
+        @media (max-width: 768px) {
+            .hero-bg {
+                background-position: 70% center;
+            }
+        }
+        .text-border-green {
+            position: relative;
+            display: inline-block;
+        }
+        .text-border-green::after {
+            content: "";
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background-color: rgba(0, 150, 108, 0.2);
+            z-index: -1;
+        }
+        .brand-accent { color: #00966C; }
+        .bg-brand-accent { background-color: #00966C; }
+        
+        .hero-title {
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        
+        .comparison-container {
+            width: 100%;
+            overflow-x: hidden;
+            padding: 0 4px;
+        }
+        .comparison-table {
+            border-collapse: separate;
+            border-spacing: 0;
+            table-layout: fixed;
+            width: 100%;
+        }
+        .sururim-column {
+            background: #ffffff;
+            border-left: 2px solid #00966C !important;
+            border-right: 2px solid #00966C !important;
+            box-shadow: 0 8px 25px -5px rgba(0, 150, 108, 0.4);
+            position: relative;
+            z-index: 20;
+            width: 28%;
+        }
+        @media (min-width: 768px) {
+            .sururim-column {
+                border-left-width: 4px !important;
+                border-right-width: 4px !important;
+                width: 25%;
+            }
+        }
+        .sururim-header {
+            border-top: 4px solid #00966C !important;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+            background: linear-gradient(to bottom, #00966C, #008560);
+        }
+        .sururim-footer {
+            border-bottom: 4px solid #00966C !important;
+            border-bottom-left-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+        }
+        .row-label {
+            width: 70px;
+            background-color: #f8fafc;
+            color: #334155;
+            font-weight: 900;
+            font-size: 0.65rem;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 8px 4px;
+        }
+        @media (min-width: 768px) {
+            .row-label { width: 130px; font-size: 0.9rem; padding: 1.5rem; }
+        }
+        .other-cell {
+            background-color: #ffffff;
+            border-bottom: 1px solid #f1f5f9;
+            color: #4b5563;
+            font-size: 0.65rem;
+            padding: 8px 2px;
+            width: 21%;
+        }
+
+        .feature-badge {
+            display: inline-flex;
+            align-items: center;
+            background: white;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-weight: 900;
+            color: #00966C;
+            border: 2px solid #00966C;
+            font-size: 0.65rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            white-space: nowrap;
+        }
+        @media (min-width: 768px) {
+            .feature-badge {
+                font-size: 1rem;
+                padding: 6px 20px;
+            }
+        }
+
+        .stats-circle {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #00966C;
+            border-radius: 50%;
+            width: 70px;
+            box-shadow: 0 8px 20px rgba(0, 150, 108, 0.15);
+        }
+        @media (min-width: 768px) {
+            .stats-circle {
+                width: 110px;
+            }
+        }
+
+        .speech-bubble {
+            position: relative;
+            background: #ffffff;
+            border: 2px solid #00966C;
+            border-radius: 1.5rem;
+            padding: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+        }
+        .speech-bubble::before {
+            content: "";
+            position: absolute;
+            left: -12px;
+            top: 20px;
+            border-style: solid;
+            border-width: 8px 12px 8px 0;
+            border-color: transparent #00966C transparent transparent;
+        }
+        .speech-bubble::after {
+            content: "";
+            position: absolute;
+            left: -8px;
+            top: 20px;
+            border-style: solid;
+            border-width: 8px 12px 8px 0;
+            border-color: transparent #ffffff transparent transparent;
+        }
+        @media (max-width: 768px) {
+            .speech-bubble::before, .speech-bubble::after {
+                left: 20px;
+                top: -12px;
+                border-width: 0 8px 12px 8px;
+                border-color: transparent transparent #00966C transparent;
+            }
+            .speech-bubble::after {
+                top: -8px;
+                border-color: transparent transparent #ffffff transparent;
+            }
+        }
+
+        /* 最終CTAのデザイン */
+        .impact-price-box {
+            background: linear-gradient(135deg, #fff 0%, #f0fdf4 100%);
+            border: 4px solid #00966C;
+            position: relative;
+            margin-top: 4.5rem;
+        }
+        .price-tag-badge {
+            background: #e11d48;
+            color: white;
+            position: absolute;
+            top: -40px;
+            left: 20px;
+            transform: rotate(-8deg);
+            box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
+            padding: 0.6rem 1.5rem;
+            font-weight: 900;
+            border-radius: 0.5rem;
+            z-index: 30;
+            white-space: nowrap;
+        }
+        @media (min-width: 768px) {
+            .price-tag-badge {
+                top: -55px;
+                left: 40px;
+                font-size: 1.25rem;
+            }
+        }
+        .impact-number {
+            font-size: clamp(4rem, 15vw, 10rem);
+            color: #e11d48;
+            font-family: 'Arial Black', sans-serif;
+            letter-spacing: -0.05em;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+        }
+
+        /* 追加デザイン：脂肪細胞図解 */
+        .fat-cell {
+            width: 32px;
+            height: 32px;
+            background: radial-gradient(circle at 30% 30%, #ffeb3b, #fbc02d);
+            border-radius: 50%;
+            margin: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .fat-cell.small {
+            transform: scale(0.4);
+        }
+        .fat-cell.destroyed {
+            opacity: 0.1;
+            transform: scale(0.1);
+        }
+        .arrow-indicator {
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 15px solid #00966C;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md px-4 py-2 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="bg-[#00966C] text-white px-3 py-1 rounded-full text-[10px] md:text-sm font-bold flex items-center shadow-sm">
+                    <span class="mr-1 text-sm md:text-lg tracking-widest font-black">SURURIMU</span>
+                    <span class="hidden sm:inline-block opacity-90 border-l border-white/30 pl-2 font-medium">次世代医療ダイエット</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[95vh] flex items-center pt-16 md:pt-20 overflow-hidden hero-bg">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 w-full relative z-10">
+            <div class="max-w-4xl">
+                <div class="flex flex-wrap gap-1.5 md:gap-4 mb-6">
+                    <span class="feature-badge">食事制限なし</span>
+                    <span class="feature-badge">運動なし</span>
+                    <span class="feature-badge">ダウンタイムなし</span>
+                    <span class="feature-badge">一部位9,800円</span>
+                </div>
+
+                <div class="mb-8">
+                    <p class="text-gray-600 font-black tracking-[0.1em] text-xs md:text-xl mb-3">努力する時代は、もう終わり。</p>
+                    <h1 class="hero-title font-black leading-tight tracking-tighter text-slate-900">
+                        <div class="text-3xl md:text-6xl text-[#00966C] mb-1">「スルリム」</div>
+                        <div class="text-2xl md:text-6xl flex items-baseline flex-wrap">
+                            <span class="text-4xl md:text-8xl mr-1 italic">100</span>時間<span class="mx-1 text-lg md:text-4xl opacity-80 font-bold">の努力を、</span>
+                            <span class="text-border-green">
+                                <span class="text-4xl md:text-8xl text-[#00966C] italic">15</span>分で
+                            </span>
+                        </div>
+                    </h1>
+                    <div class="mt-6 inline-block bg-white/80 backdrop-blur px-5 py-3 rounded-xl border-l-4 md:border-l-8 border-[#00966C] shadow-lg">
+                        <p class="text-lg md:text-3xl font-black text-[#00966C] tracking-tighter leading-tight">
+                            「あなたは、いつも通り過ごすだけ。」
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mb-10 flex flex-col md:flex-row items-center gap-6 md:gap-12">
+                    <a href="#cta" class="w-full sm:w-auto text-center inline-block bg-[#00966C] text-white text-base md:text-2xl font-black px-10 py-5 rounded-full shadow-xl active:scale-95 transition-all">
+                        LINEで無料タイプ診断
+                    </a>
+                    <div class="flex gap-2.5 md:gap-5">
+                        <div class="stats-circle">
+                            <p class="text-[7px] md:text-[10px] font-bold text-gray-500 leading-none mb-1">クリニック数</p>
+                            <p class="text-[9px] md:text-base font-black text-[#00966C]">全国34院</p>
+                        </div>
+                        <div class="stats-circle">
+                            <p class="text-[7px] md:text-[10px] font-bold text-gray-500 leading-none mb-1">施術時間</p>
+                            <p class="text-[9px] md:text-base font-black text-[#00966C]">最短15分</p>
+                        </div>
+                        <div class="stats-circle">
+                            <p class="text-[7px] md:text-[10px] font-bold text-gray-500 leading-none mb-1">友達数</p>
+                            <p class="text-[9px] md:text-base font-black text-[#00966C]">30万人</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section (マッコイ斎藤さん) -->
+    <section class="py-12 md:py-24 bg-slate-50">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="relative rounded-2xl md:rounded-[3rem] overflow-hidden shadow-2xl bg-white">
+                <div class="relative h-[380px] md:h-[700px]">
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop" alt="施術風景" class="w-full h-full object-cover">
+                    <div class="absolute top-0 right-0 bg-brand-accent text-white px-5 py-2 text-xs md:text-4xl font-black italic">マッコイ斎藤さんが体験</div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 md:p-16 bg-gradient-to-t from-black/80 to-transparent text-white">
+                        <div class="space-y-2 md:space-y-8">
+                            <div class="inline-block bg-white px-4 py-2 md:px-10 md:py-5 shadow-2xl rounded-lg">
+                                <h2 class="text-sm md:text-5xl font-black text-gray-900 tracking-tighter italic">初めてのスルリム体験！</h2>
+                            </div>
+                            <div class="bg-white/95 p-4 md:p-12 shadow-2xl inline-block border-l-4 md:border-l-[16px] border-brand-accent rounded-r-xl">
+                                <p class="text-[10px] md:text-3xl font-black mb-1 text-gray-800 leading-none">たった1回の施術で約</p>
+                                <div class="flex items-baseline">
+                                    <span class="text-4xl md:text-[11rem] font-black brand-accent leading-none tracking-tighter">-6.5</span>
+                                    <span class="text-xl md:text-8xl font-black brand-accent ml-1">kg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="py-12 md:py-24 bg-white">
+        <div class="max-w-5xl mx-auto relative z-10 px-4">
+            <div class="text-center mb-10">
+                <h3 class="text-lg md:text-5xl font-black mb-2 tracking-tighter text-slate-900 leading-tight">
+                    6.5kg（<span class="text-red-600">46,800kcal</span>）を<br>消費するために必要なこと
+                </h3>
+            </div>
+            <div class="comparison-container">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th class="p-0 w-[70px] md:w-[130px]"></th>
+                            <th class="p-2 text-center text-slate-400 font-black text-[9px] md:text-sm border-b uppercase">Gym</th>
+                            <th class="p-2 text-center text-slate-400 font-black text-[9px] md:text-sm border-b uppercase">Run</th>
+                            <th class="p-2 text-center text-slate-400 font-black text-[9px] md:text-sm border-b uppercase text-slate-800">Surgery</th>
+                            <th class="p-2 md:p-6 text-center sururim-column sururim-header text-white">
+                                <div class="text-[7px] md:text-[10px] bg-yellow-400 text-black px-1.5 md:px-3 py-0.5 rounded-full mb-1 font-black uppercase">Best</div>
+                                <div class="text-[11px] md:text-2xl font-black leading-none italic">スルリム</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-[10px] md:text-sm">
+                        <tr>
+                            <td class="row-label">必要な時間</td>
+                            <td class="other-cell">120h〜</td><td class="other-cell">100h〜</td><td class="other-cell font-bold">3時間+DT</td>
+                            <td class="text-center sururim-column border-b border-emerald-50 font-black brand-accent">最短15分</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">コスト</td>
+                            <td class="other-cell font-bold">15万円</td><td class="other-cell font-bold">2万円</td><td class="other-cell font-black italic">80万〜</td>
+                            <td class="text-center sururim-column border-b bg-emerald-50/10 font-black brand-accent underline decoration-rose-500 decoration-4 underline-offset-4">9,800円</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">継続性</td>
+                            <td class="other-cell text-red-500 font-bold">即リバ</td><td class="other-cell text-red-500 font-bold">即リバ</td><td class="other-cell font-medium">生活習慣次第</td>
+                            <td class="text-center sururim-column border-b font-black brand-accent">リバウンド０を追求</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctor Section -->
+    <section class="py-12 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
+                <div class="flex-shrink-0">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71f1e3c770?q=80&w=200&h=200&auto=format&fit=crop" alt="医師" class="w-20 h-20 md:w-32 md:h-32 rounded-full border-4 border-[#00966C] object-cover shadow-lg">
+                        <div class="absolute -bottom-1 -right-1 bg-[#00966C] text-white text-[8px] md:text-[10px] font-black px-2 py-0.5 rounded-md shadow-sm">DOCTOR</div>
+                    </div>
+                </div>
+                <div class="flex-grow space-y-4">
+                    <div class="speech-bubble">
+                        <p class="font-black text-[#00966C] text-base md:text-xl mb-1">「一回で、脂肪溶解5回分の効果が期待できます」</p>
+                        <p class="text-slate-600 text-xs md:text-base leading-relaxed">これほど高効率な施術が、今なら手軽に始められる価格で提供されています。</p>
+                    </div>
+                    <div class="speech-bubble">
+                        <p class="font-black text-[#00966C] text-base md:text-xl mb-1">「施術時間は15分。お忙しい方も来ていただけます」</p>
+                        <p class="text-slate-600 text-xs md:text-base leading-relaxed">タイパだけでなくコスパも追求。無理なく通える設定にこだわりました。</p>
+                    </div>
+                    <div class="speech-bubble">
+                        <p class="font-black text-[#00966C] text-base md:text-xl mb-1">「メス不使用。ダウンタイム0を徹底追求しました」</p>
+                        <p class="text-slate-600 text-xs md:text-base leading-relaxed">安全性と結果の両立。それがスルリムが選ばれる理由です。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final CTA Zone -->
+            <div id="cta" class="mt-16 md:mt-24 impact-price-box rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 text-center shadow-[0_40px_100px_-20px_rgba(225,29,72,0.2)] relative overflow-hidden">
+                <div class="max-w-4xl mx-auto relative z-10">
+                    <h2 class="text-2xl md:text-5xl font-black text-slate-900 leading-tight mb-8 tracking-tighter">
+                        「100時間の努力」を<br class="md:hidden">
+                        <span class="text-border-green">「15分」で。</span>
+                    </h2>
+                    
+                    <div class="mb-10">
+                        <div class="flex flex-col items-center">
+                            <p class="text-lg md:text-2xl font-black text-rose-600 mb-2">＼ 特別キャンペーン・圧倒的安さ ／</p>
+                            <div class="flex items-center justify-center gap-1 md:gap-4 flex-wrap leading-none">
+                                <span class="text-xl md:text-4xl font-black text-slate-800 self-center">一部位</span>
+                                <span class="impact-number">9,800</span>
+                                <div class="flex flex-col items-start gap-1">
+                                    <span class="text-3xl md:text-6xl font-black text-rose-600">円</span>
+                                </div>
+                            </div>
+                            <p class="mt-4 bg-yellow-400 text-black px-6 py-2 rounded-lg font-black text-sm md:text-xl animate-pulse">
+                                他社と比較してください。この価格で医療ダイエットは破格です。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="inline-block relative w-full sm:w-auto">
+                        <div class="absolute -top-7 left-1/2 -translate-x-1/2 bg-[#00966C] text-white text-[10px] md:text-xs font-black px-4 py-1 rounded-full animate-bounce shadow-lg whitespace-nowrap">
+                            劇的な変化を今すぐチェック！
+                        </div>
+                        
+                        <a href="#" class="w-full sm:w-auto inline-flex items-center justify-center bg-rose-600 text-white text-lg md:text-3xl font-black px-6 py-5 md:px-16 md:py-10 rounded-full shadow-[0_20px_40px_-10px_rgba(225,29,72,0.4)] hover:scale-105 active:scale-95 transition-all group border-b-8 border-rose-800">
+                            <span class="flex items-center">
+                                LINEで症例を公開中
+                                <svg class="w-6 h-6 md:w-8 md:h-8 ml-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+                            </span>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-10 flex flex-wrap justify-center gap-6 text-slate-400 text-xs md:text-base font-bold">
+                        <span class="flex items-center"><svg class="w-4 h-4 mr-1 text-[#00966C]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>診断は完全無料</span>
+                        <span class="flex items-center"><svg class="w-4 h-4 mr-1 text-[#00966C]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>強引な勧誘なし</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REBOUND MECHANISM SECTION (一番下に配置) -->
+    <section class="py-16 md:py-24 bg-white border-t-8 border-[#00966C]/10">
+        <div class="max-w-5xl mx-auto px-4">
+            <!-- 独立したメッセージ -->
+            <div class="text-center mb-16">
+                <h3 class="text-2xl md:text-5xl font-black text-slate-900 leading-tight tracking-tighter">
+                    スルリムは<span class="text-rose-600 underline decoration-8 decoration-rose-200 underline-offset-8">脂肪細胞そのものを破壊し「体外へ排出」</span><br class="hidden md:block">
+                    するから<span class="text-[#00966C] text-3xl md:text-7xl italic">リバウンドしにくい！！</span>
+                </h3>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-stretch">
+                <!-- 一般的なダイエット -->
+                <div class="flex flex-col bg-slate-50 rounded-[2.5rem] p-8 md:p-12 border-2 border-slate-100">
+                    <div class="bg-slate-200 text-slate-600 px-6 py-2 rounded-full font-black text-center mb-10 self-center">一般的なダイエット</div>
+                    
+                    <div class="flex items-center justify-between gap-2 mb-10 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                        <div class="text-center flex-1">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase block mb-4 italic">Before</span>
+                            <div class="flex flex-wrap justify-center max-w-[120px] mx-auto gap-1">
+                                <div class="fat-cell"></div><div class="fat-cell"></div><div class="fat-cell"></div>
+                                <div class="fat-cell"></div><div class="fat-cell"></div><div class="fat-cell"></div>
+                            </div>
+                        </div>
+                        <div class="arrow-indicator opacity-20"></div>
+                        <div class="text-center flex-1">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase block mb-4 italic">After</span>
+                            <div class="flex flex-wrap justify-center max-w-[120px] mx-auto gap-1">
+                                <div class="fat-cell small"></div><div class="fat-cell small"></div><div class="fat-cell small"></div>
+                                <div class="fat-cell small"></div><div class="fat-cell small"></div><div class="fat-cell small"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-base md:text-lg text-slate-700 font-bold leading-relaxed">
+                        脂肪細胞を<span class="text-slate-900 font-black underline decoration-slate-300 underline-offset-4">「小さく」</span>するだけ。<br>
+                        細胞の数は変わらないから、食事を戻せばまた膨らんでリバウンドします。
+                    </p>
+                </div>
+
+                <!-- スルリム式 -->
+                <div class="flex flex-col bg-emerald-50 rounded-[2.5rem] p-8 md:p-12 border-4 border-[#00966C]/30 shadow-2xl shadow-emerald-900/10 relative overflow-hidden">
+                    <div class="absolute -top-1 right-8 bg-yellow-400 text-black px-4 py-1 text-xs font-black rounded-b-lg shadow-sm">根本解決</div>
+                    <div class="bg-[#00966C] text-white px-6 py-2 rounded-full font-black text-center mb-10 shadow-lg shadow-emerald-700/20 self-center">スルリム式</div>
+                    
+                    <div class="flex items-center justify-between gap-2 mb-10 bg-white p-6 rounded-2xl shadow-md border border-emerald-100">
+                        <div class="text-center flex-1">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase block mb-4 italic">Before</span>
+                            <div class="flex flex-wrap justify-center max-w-[120px] mx-auto gap-1">
+                                <div class="fat-cell"></div><div class="fat-cell"></div><div class="fat-cell"></div>
+                                <div class="fat-cell"></div><div class="fat-cell"></div><div class="fat-cell"></div>
+                            </div>
+                        </div>
+                        <div class="arrow-indicator"></div>
+                        <div class="text-center flex-1">
+                            <span class="text-[10px] font-black text-[#00966C] uppercase block mb-4 italic">Success!</span>
+                            <div class="flex flex-wrap justify-center max-w-[120px] mx-auto gap-1 relative">
+                                <div class="fat-cell destroyed"></div><div class="fat-cell"></div><div class="fat-cell destroyed"></div>
+                                <div class="fat-cell"></div><div class="fat-cell destroyed"></div><div class="fat-cell destroyed"></div>
+                                <div class="absolute -right-4 -top-2 text-2xl animate-pulse">💨</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-base md:text-lg text-slate-800 font-bold leading-relaxed">
+                        脂肪細胞そのものを破壊し<span class="text-[#00966C] font-black italic underline underline-offset-4 decoration-yellow-400">「体外へ排出」</span>して減らします。<br>
+                        脂肪そのものを出すので、もう脂肪は溜まれません。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 py-10 md:py-20 px-4 text-center text-slate-500 text-[10px] md:text-xs">
+        <div class="mb-4 font-black tracking-[0.5em] text-slate-400 text-lg uppercase">SURURIMU</div>
+        <p class="mb-2 font-bold text-slate-400">超次世代痩身ダイエット代行サービス「スルリム」</p>
+        <p class="opacity-60">&copy; 2026 SURURIMU Inc. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
